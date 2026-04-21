@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Book Event</h2>
+
+<p><b>{{  chosen_event["event_name"] }}</b></p>
+<p>{{  chosen_event["event_date"] }}</p>
+<p>{{ chosen_event["event_location"] }}</p>
+
+<form method="POST">
+    <label>Tickets</label><br>
+    <input type="number" name="tickets"<br><br>
+
+    <button type="submit">Book</button>
+</form>
+
+{% endblock %}

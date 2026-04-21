@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{%  block content %}
+
+<h2>Add Event</h2>
+
+{%  if error %}
+    <p>{{ error }}</p>
+{% endif %}
+
+<form method="POST">
+    <label>Event Name</label>
+    <input type="text" name="event_date"><br><br>
+
+    <label>Event Date</label>
+    <input type="text" name="event_location"><br><br>
+
+    <label>Event Description</label><br>
+    <textarea name="event_discription"></textarea><br><br>
+
+    <button type="submit">Add Event</button>
+</form>
+
+{% endblock %}

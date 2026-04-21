@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{%  block content %}
+
+<h2>Sign Up</h2>
+
+{% if error %}
+    <p>{{ error }}</p>
+{% endif %}
+
+<form method="POST">
+    <label>First Name</label><br>
+    <input type="text" name="user_fname"><br><br>
+
+    <label>Last Name</label><br>
+    <input type="text" name="user_lnamw"><br><br>
+
+    <label>Emaik</label><br>
+    <input type="email" name="user_email"><br><br>
+
+    <label>Password</label><br>
+    <input type="password" name="user_password"><br><br>
+
+    <label>Confirm Password</label><br>
+    <input type="password" name="user_password2"><br><br>
+
+    <label>Role</label>label<br>
+    <select name="user_role">
+        <option value="customer">Customer</option>option>
+        <option value="admin">Admin</option>
+    </select><br><br>
+
+    <button type = "submit">Sign Up</button>
+</form>
+
+{% endblock %}
+
+
