@@ -5,9 +5,19 @@ app = Flask(__name__)
 app.secret_key = "secretkey"
 
 def connect_db():
-    con = sqlite3.connect("users")
+    con = sqlite3.connect("identifier.sqlite")
     con.row_factory = sqlite3.Row
     return con
+
+def is_admin():
+    '''
+
+    :return: This function returns either true or false dependig on if they are an admin or not
+    '''
+    if session["role"] == "admin":
+        return True
+    else:
+        return False
 
 @app.route('/')
 def home():
@@ -107,7 +117,7 @@ def add_event():
         event_location = request.form.get('event_location').strip()
         event_description = request.form.get('event_description').strip()
 
-        if event_name == "" or event_date == "" or event_location == "" or event_discription == "":
+        if event_name == "" or event_date == "" or event_location == "" or event_description == "":
             return redirect("/add_event?error=fill+in+all+boxes")
 
         con = connect_db()

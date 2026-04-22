@@ -11,9 +11,10 @@
     <a href="/">Home</a>
     <a href="/signup">Sign Up</a>
     <a href="/login">Login</a>
-    <a href="/add_event">Add Event"</a>
-    <a href="/my_booking">My Bookings"</a>
-    <a href="/logout">Logout"</a>
+    {% if admin == True %}
+    <a href="/add_event">Add Event</a>
+    <a href="/my_booking">My Bookings</a>
+    <a href="/logout">Logout</a>
 
     <hr>
 

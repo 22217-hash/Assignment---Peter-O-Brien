@@ -6,9 +6,9 @@
 
 {% for event in event_list %}
     <p><b>{{ event["even_name"] }}</b></p>
-    <p>{{ event["event_date" }}</p>
-    <p>{{ event["event_location" }}</p>
-    <p>{{ event["event_discription" }}</p>
+    <p>{{ event["event_date"] }}</p>
+    <p>{{ event["event_location"] }}</p>
+    <p>{{ event["event_discription"] }}</p>
     <a href="/book_event/{{ event ['event_id'] }}">Book Event</a>
     <hr>
 {% endfor %}
