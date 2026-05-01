@@ -4,25 +4,32 @@
 
 <h2>Sign Up</h2>
 
-{% if error %}
-    <p>{{ error }}</p>
-{% endif %}
 
-<form method="POST">
-    <label>First Name</label><br>
-    <input type="text" name="user_fname"><br><br>
+    <form class="myform" METHOD="POST">
+        <div class ="form-group">
+        <div class="form-label"> First Name: </div>
+        <div class="form-element"> <input type="text" name="user_fname" required></div>
+    </div>
 
-    <label>Last Name</label><br>
-    <input type="text" name="user_lnamw"><br><br>
+    <div class ="form-group">
+        <div class="form-label"> Last Name: </div>
+        <div class="form-element"> <input type="text" name="user_lname" required></div>
+    </div>
 
-    <label>Emaik</label><br>
-    <input type="email" name="user_email"><br><br>
+    <div class ="form-group">
+        <div class="form-label"> Email: </div>
+        <div class="form-element"> <input type="email" name="user_email" required></div>
+    </div>
 
-    <label>Password</label><br>
-    <input type="password" name="user_password"><br><br>
+    <div class ="form-group">
+        <div class="form-label"> Password: </div>
+        <div class="form-element"> <input type="password" name="user_password" required></div>
+    </div>
 
-    <label>Confirm Password</label><br>
-    <input type="password" name="user_password2"><br><br>
+    <div class ="form-group">
+        <div class="form-label"> Confirm Password: </div>
+        <div class="form-element"> <input type="password" name="user_password2" required></div>
+    </div>
 
     <label>Role</label>label<br>
     <select name="user_role">

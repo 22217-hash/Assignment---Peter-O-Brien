@@ -4,10 +4,12 @@ import sqlite3
 app = Flask(__name__)
 app.secret_key = "secretkey"
 
+
 def connect_db():
     con = sqlite3.connect("identifier.sqlite")
     con.row_factory = sqlite3.Row
     return con
+
 
 def is_admin():
     '''
@@ -18,6 +20,7 @@ def is_admin():
         return True
     else:
         return False
+
 
 @app.route('/')
 def home():
@@ -31,10 +34,9 @@ def home():
     con.close()
     return render_template("home.html", event_list=event_list)
 
-@app.route("/signup", methods=['GET','POST'])
-def render_signup_page():
-    error = request.args.get("error")
 
+@app.route("/signup", methods=['GET', 'POST'])
+def render_signup_page():
     if request.method == 'POST':
         fname = request.form.get('user_fname').title().strip()
         lname = request.form.get('user_lname').title().strip()
@@ -44,7 +46,7 @@ def render_signup_page():
         role = request.form.get('user_role').strip().lower()
 
         if fname == "" or lname == "" or email == "" or password == "" or password2 == "":
-            return  redirect("/signup?error=fill+in+all+boxes")
+            return redirect("/signup?error=fill+in+all+boxes")
 
         if password != password2:
             return redirect("/signup?error=passwords+do+not+match")
@@ -70,10 +72,12 @@ def render_signup_page():
 
         return redirect("login")
 
-    return render_template("signup.html", error=error)
+    return render_template("signup.html")
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def render_login_page():
-    error = request.args.get("error")
+    error = request.form.get("error")
 
     if request.method == 'POST':
         email = request.form.get('user_email').lower().strip()
@@ -97,14 +101,16 @@ def render_login_page():
 
         return redirect("/")
 
-    return  render_template("login.html", error=error)
+    return render_template("login.html", error=error)
+
 
 @app.route('/logout')
 def logout():
     session.clear()
     return redirect("/")
 
-@app.route('/add_event', methods=['GET','POST'])
+
+@app.route('/add_event', methods=['GET', 'POST'])
 def add_event():
     if "user_id" not in session:
         return redirect("/login?error=log+in+first")
@@ -132,7 +138,8 @@ def add_event():
         con.close()
 
         return redirect("/")
-    return  render_template("add_event.html", error=error)
+    return render_template("add_event.html", error=error)
+
 
 @app.route('/book_event/<event_id>', methods=['GET', 'POST'])
 def book_event(event_id):
@@ -163,6 +170,7 @@ def book_event(event_id):
     con.close()
     return render_template("book_event.html", chosen_event=chosen_event)
 
+
 @app.route('/my_bookings')
 def my_bookings():
     if "user_id" not in session:
@@ -171,7 +179,7 @@ def my_bookings():
     con = connect_db()
     cur = con.cursor()
 
-    query ="""
+    query = """
     SELECT bookings.*, events.event_name, events.event_date
     FROM bookings
     JOIN  events ON bookings.fk_event_id = events.event_id
@@ -184,9 +192,6 @@ def my_bookings():
     con.close()
     return render_template("my_bookings.html", booking_list=booking_list)
 
+
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-
-
