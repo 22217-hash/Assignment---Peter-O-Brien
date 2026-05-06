@@ -4,15 +4,38 @@
 
 <h2>Book Event</h2>
 
-<b>{{  chosen_event["event_name"] }}</b>
-<p>{{  chosen_event["event_date"] }}</p>
-<p>{{ chosen_event["event_location"] }}</p>
+<form class="myform" method="POST">
 
-<form method="POST">
-    <label>Tickets</label><br>
-    <input type="number" name="tickets">
+    <div class="form-group">
+        <div class="form-label">Event Name:</div>
+        <div class="form-element">
+            <b>{{ chosen_event["event_name"] }}</b>
+        </div>
+    </div>
 
-    <button type="submit">Book></button>
+    <div class="form-group">
+        <div class="form-label">Event Date:</div>
+        <div class="form-element">
+            <b>{{ chosen_event["event_date"] }}</b>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="form-label">Event Location:</div>
+        <div class="form-element">
+            <b>{{ chosen_event["event_location"] }}</b>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="form-label">Tickets:</div>
+        <div class="form-element">
+            <input type="number" name="tickets" min="1" required>
+        </div>
+    </div>
+
+    <button type="submit">Book</button>
+
 </form>
-
+io9
 {% endblock %}

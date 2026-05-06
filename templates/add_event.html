@@ -1,18 +1,38 @@
 {% extends "base.html" %}
 
-{%  block content %}
+{% block content %}
 
 <h2>Add Event</h2>
 
-<form method="POST">
-    <label>Event Name</label>
-    <input type="text" name="event_date"><br><br>
+<form class="myform" method="POST">
 
-    <label>Event Date</label>
-    <input type="text" name="event_location"><br><br>
+    <div class="form-group">
+        <div class="form-label">Event Name:</div>
+        <div class="form-element">
+            <input type="text" name="event_name" required>
+        </div>
+    </div>
 
-    <label>Event Description</label><br>
-    <textarea name="event_description"></textarea><br><br>
+    <div class="form-group">
+        <div class="form-label">Event Date:</div>
+        <div class="form-element">
+            <input type="date" name="event_date" required>
+        </div>
+    </div>
+
+        <div class="form-group">
+        <div class="form-label">Event Location:</div>
+        <div class="form-element">
+            <input type="text" name="event_location" required>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="form-label">Event Description:</div>
+        <div class="form-element">
+            <textarea name="event_description" required></textarea>
+        </div>
+    </div>
 
     <button type="submit">Add Event</button>
 </form>

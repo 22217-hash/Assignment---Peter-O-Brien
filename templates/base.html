@@ -11,8 +11,8 @@
     <a href="/">Home</a>
     <a href="/signup">Sign Up</a>
     <a href="/login">Login</a>
-    {% if admin == True %}
-    <a href="/add_event">Add Event</a>
+    {% if session.get("role") == "admin" %}
+         <a href="/add_event">Add Event</a>
     {% endif %}
     <a href="/my_booking">My Bookings</a>
     <a href="/logout">Logout</a>

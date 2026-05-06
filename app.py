@@ -101,7 +101,7 @@ def render_login_page():
 
         return redirect("/")
 
-    return render_template("login.html", error=error)
+    return render_template("login.html")
 
 
 @app.route('/logout')
@@ -138,7 +138,7 @@ def add_event():
         con.close()
 
         return redirect("/")
-    return render_template("add_event.html", error=error)
+    return render_template("add_event.html")
 
 
 @app.route('/book_event/<event_id>', methods=['GET', 'POST'])
@@ -160,7 +160,7 @@ def book_event(event_id):
             con.close()
             return redirect("/bookevent/{event_id}")
 
-        insert_query = "INSERT INTO booking (fk_user_id, fk_event_id, tickets) VALUES (?,?,?)"
+        insert_query = "INSERT INTO bookings (fk_user_id, fk_event_id, tickets) VALUES (?,?,?)"
         cur.execute(insert_query, (session["user_id"], event_id, tickets))
         con.commit()
         con.close()
@@ -194,4 +194,4 @@ def my_bookings():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5001)
