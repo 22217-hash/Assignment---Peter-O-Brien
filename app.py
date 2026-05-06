@@ -1,7 +1,9 @@
 from flask import Flask, render_template, redirect, request, session
 import sqlite3
+from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
+bcrypt = Bcrypt(app)
 app.secret_key = "secretkey"
 
 
@@ -56,6 +58,8 @@ def render_signup_page():
         if len(password) < 8:
             return redirect("/signup?error=password+must+be+at+least+8+characters")
 
+        hashed_password = bcrypt.generate_password_hash(password)
+
         con = connect_db()
         cur = con.cursor()
 
@@ -68,7 +72,7 @@ def render_signup_page():
             return redirect("/signup?error=email+already+exists")
 
         insert_query = "INSERT INTO users (fname, lname, email, password, role) VALUES (?,?,?,?,?)"
-        cur.execute(insert_query, (fname, lname, email, password, role))
+        cur.execute(insert_query, (fname, lname, email, role, hashed_password))
         con.commit()
         con.close()
 
