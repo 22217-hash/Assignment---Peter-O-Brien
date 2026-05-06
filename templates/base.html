@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Evemt Website</title>
+    <title>Event Website</title>
 </head>
 <body>
 
@@ -14,8 +14,10 @@
     {% if session.get("role") == "admin" %}
          <a href="/add_event">Add Event</a>
     {% endif %}
-    <a href="/my_booking">My Bookings</a>
+    <a href="/my_bookings">My Bookings</a>
+    {% if session.get('user_id') !=None %}
     <a href="/logout">Logout</a>
+    {% endif %}
 
     <hr>
 

@@ -5,6 +5,8 @@ app = Flask(__name__)
 app.secret_key = "secretkey"
 
 
+
+
 def connect_db():
     con = sqlite3.connect("identifier.sqlite")
     con.row_factory = sqlite3.Row
