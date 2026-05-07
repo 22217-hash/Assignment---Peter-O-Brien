@@ -4,13 +4,34 @@
 
 <h2>Home Page</h2>
 
+<div class="event-container"></div>
+
 {% for event in event_list %}
-    <p><b>{{ event["even_name"] }}</b></p>
-    <p>{{ event["event_date"] }}</p>
-    <p>{{ event["event_location"] }}</p>
-    <p>{{ event["event_discription"] }}</p>
-    <a href="/book_event/{{ event ['event_id'] }}">Book Event</a>
-    <hr>
+
+    <div class="page-box">
+
+        <div class="form-group">
+            <div class="form-label">
+                <b>{{ event["event_name"] }}</b>
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ event["event_date"] }} | {{ event["event_location"] }}
+        </div>
+
+        <div class="form-group">
+            {{ event ["event_description"] }}
+        </div>
+
+        <div class="form-group">
+            <a href="/book_event/{{ event['event_id'] }}">Book Event</a>
+        </div>
+
+    </div>
+
+    <br>
+
 {% endfor %}
 
 {% endblock %}

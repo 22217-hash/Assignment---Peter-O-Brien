@@ -4,11 +4,51 @@
 
 <h2>My Bookings</h2>
 
+
+<!--Check if user has no bookings -->
+{% if booking_list|length == 0 %}
+    <p>You have no bookings yet.</p>
+
+{% else %}
+
+<!-- Loop through eafch booking in the database-->
 {% for booking in booking_list %}
-    <p><b>{{ booking["event_name"] }}</b></p>
-    <p>{{ booking["event_date"] }}</p>
-    <p>Tickets: {{ booking["tickets"] }}</p>
-    <hr>
-{% endfor %}
+
+<!--Display event name-->
+    <div class="form-group">
+        <div class="form-label">Event Name:</div>
+        <div class="form-element">
+            <b>{{ booking["event_name"] }}</b>
+        </div>
+    </div>
+
+<!--Display event date-->
+    <div class="form-group">
+        <div class="form-label">Event Date:</div>
+        <div class="form-element">
+            <b>{{ booking["event_date"] }}</b>
+        </div>
+    </div>
+
+<!--Display number of tickets -->
+    <div class="form-group">
+        <div class="form-label">Tickets:</div>
+        <div class="form-element">
+            <b>{{ booking["tickets"] }}</b>
+        </div>
+    </div>
+
+<!-- ALlows users to cancel their booking -->
+<div class="form-group">
+    <a href="/delete_booking/{{ booking['booking_id'] }}">
+        Cancel Booking
+    </a>
+</div>
+
+<hr>
+
+    {% endfor %}
+
+{% endif %}
 
 {% endblock %}

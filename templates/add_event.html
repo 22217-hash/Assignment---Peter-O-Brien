@@ -4,6 +4,10 @@
 
 <h2>Add Event</h2>
 
+{% if error %}
+    <p style="color: red">{{ error }}</p>
+{% endif %}
+
 <form class="myform" method="POST">
 
     <div class="form-group">
