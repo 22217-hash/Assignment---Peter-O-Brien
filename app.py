@@ -74,14 +74,13 @@ def render_signup_page():
         con.commit()
         con.close()
 
-        return redirect("login")
+        return redirect("/login")
     error = request.args.get("error")
     return render_template("signup.html", error=error)
 
 # Handles user login and checks details
 @app.route('/login', methods=['GET', 'POST'])
 def render_login_page():
-    error = request.form.get("error")
     # Get user details from form
     if request.method == 'POST':
         email = request.form.get('user_email').lower().strip()
@@ -107,7 +106,7 @@ def render_login_page():
         session["role"] = user["role"]
 
         return redirect("/")
-
+    error = request.args.get("error")
     return render_template("login.html", error=error)
 
 # Logs the user out by clearing session data
@@ -146,7 +145,8 @@ def add_event():
         con.close()
 
         return redirect("/")
-    return render_template("add_event.html")
+
+    return render_template("add_event.html", error=error)
 
 # Allows users to book tickets for an event
 @app.route('/book_event/<event_id>', methods=['GET', 'POST'])
@@ -166,7 +166,7 @@ def book_event(event_id):
 
         if tickets == "":
             con.close()
-            return redirect("/bookevent/{event_id}")
+            return redirect(f"/book_event/{event_id}?error=fill+in+tickets")
         # Save booking to database
         insert_query = "INSERT INTO bookings (fk_user_id, fk_event_id, tickets) VALUES (?,?,?)"
         cur.execute(insert_query, (session["user_id"], event_id, tickets))
@@ -176,7 +176,8 @@ def book_event(event_id):
         return redirect("/my_bookings")
 
     con.close()
-    return render_template("book_event.html", chosen_event=chosen_event)
+    error = request.args.get("error")
+    return render_template("book_event.html", chosen_event=chosen_event, error=error)
 
 # Shows all bookings for the logged in user
 @app.route('/my_bookings')
