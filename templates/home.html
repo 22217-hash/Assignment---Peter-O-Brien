@@ -2,13 +2,14 @@
 
 {%  block content %}
 
-<h2>Home Page</h2>
+<h2>Upcoming Events</h2>
 
-<div class="event-container"></div>
+<div class="event-container">
 
 {% for event in event_list %}
 
     <div class="page-box">
+
 
         <div class="form-group">
             <div class="form-label">
@@ -24,14 +25,15 @@
             {{ event ["event_description"] }}
         </div>
 
-        <div class="form-group">
-            <a href="/book_event/{{ event['event_id'] }}">Book Event</a>
+        <div class="button-group">
+            <a class="book-bin" href="/book_event/{{ event['event_id'] }}">Book Event</a>
         </div>
 
     </div>
 
-    <br>
 
 {% endfor %}
+
+</div>
 
 {% endblock %}

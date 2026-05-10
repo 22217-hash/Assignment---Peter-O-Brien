@@ -13,77 +13,146 @@
         }
 
         h1 {
-            background-color: steelblue;
-            color: white;
+            text-align: center;
+            font-weight: normal;
+            font-size: 2.5rem;
             padding: 1rem;
-            margin: 0;
+            color: white;
+            background-color: steelblue;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 1rem;
+            margin: 1rem;
         }
 
         .nav {
-            margin-right: 0.75rem;
+            background-color: whitesmoke;
+            text-align: center;
+            padding: 0.7rem;
+        }
+
+        .nav a {
+            margin: 0.5rem;
             color: darkblue;
             font-weight: bold;
+            text-decoration: none;
         }
 
-        body {
-            padding: 0.75rem;
+        .nav a:hover {
+            border-bottom: 0.12rem solid steelblue;
         }
 
-        .form-group{
-            margin-bottom: 12px;
+        .event-container {
+            width: 70rem;
+            margin: auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
         }
 
-        .form-label{
+        .page-box {
+            background-color: white;
+            border: 0.06rem solid gray;
+            width: 30rem;
+            padding: 1rem;
+            margin: 0.7rem;
+        }
+
+        .form-group {
+            margin-bottom: 0.8rem;
+        }
+
+        .form-label {
             font-weight: bold;
+            margin-bottom: 0.2rem;
         }
 
         input, textarea, select {
             width: 15rem;
             padding: 0.4rem;
+            margin-top: 0.2rem;
+        }
+
+        textarea {
+            height: 5rem;
         }
 
         button {
-            padding: 7px 12px;
+            padding: 0.5rem 0.8rem;
             background-color: steelblue;
             color: white;
             border: none;
+            margin-top: 0.5rem;
         }
 
-        .page-box {
-            background-color: white;
-            border: 0.06rem solid grey;
-            padding: 1rem;
-            margin: 0.6rem;
-            width: 18rem;
+        button:hover {
+            background-color: blue;
         }
 
-        .event-container {
-            padding: 0.6rem
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+        a {
+            color: darkblue;
+        }
+
+        @media only screen and (max-width: 900px) {
+            .event-container {
+                width: 100%;
+            }
+
+            .page-box {
+                width: 90%;
+            }
+        }
+
+        .button-group {
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .book-bin {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: steelblue;
+            color: white !important;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-weight: bold;
+        }
+
+        .book-bin:hover {
+            background-color: royalblue;
         }
 
     </style>
 </head>
 <body>
 
-    <h1>Event Website</h1>
+<div class="nav">
 
-    <a href="/">Home</a>
-    {% if session.get('user_id') == None %}
-    <a href="/signup">Sign Up</a>
-    <a href="/login">Login</a>
-    {% endif %}
+    <div class="nav-left">
+        <a href="/">Wellington College Event Booking</a>
+    </div>
 
-    {% if session.get("role") == "admin" %}
-         <a href="/add_event">Add Event</a>
-    {% endif %}
+    <div class="nav-right">
+        <a href="/">Home</a>
 
-    {% if session.get('user_id') !=None %}
-    <a href="/my_bookings">My Bookings</a>
-    <a href="/logout">Logout</a>
-    {% endif %}
+        {% if session.get('user_id') == None %}
+            <a href="/signup">Sign Up</a>
+            <a href="/login">Login</a>
+        {% endif %}
+
+        {% if session.get("role") == "admin" %}
+            <a href="/add_event">Add Event</a>
+        {% endif %}
+
+        {% if session.get('user_id') !=None %}
+            <a href="/my_bookings">My Bookings</a>
+            <a href="/logout">Logout</a>
+        {% endif %}
+    </div>
+
+</div>
 
     <hr>
 
