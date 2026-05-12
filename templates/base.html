@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Verdana, Arial, sans-serif;
-            background-color: lightgray;
+            background-color: darkslategray;
             margin: 0;
             padding: 1rem;
         }
@@ -17,31 +17,33 @@
             font-weight: normal;
             font-size: 2.5rem;
             padding: 1rem;
-            color: white;
-            background-color: steelblue;
+            color: gold;
+            background-color: black;
+            border-bottom: 0.15rem solid gold;
         }
 
         h2 {
             text-align: center;
             font-size: 1rem;
             margin: 1rem;
+            color: gold;
         }
 
         .nav {
-            background-color: whitesmoke;
+            background-color: gold;
             text-align: center;
             padding: 0.7rem;
         }
 
         .nav a {
             margin: 0.5rem;
-            color: darkblue;
+            color: black;
             font-weight: bold;
             text-decoration: none;
         }
 
         .nav a:hover {
-            border-bottom: 0.12rem solid steelblue;
+            border-bottom: 0.12rem solid black;
         }
 
         .event-container {
@@ -53,20 +55,23 @@
         }
 
         .page-box {
-            background-color: white;
-            border: 0.06rem solid gray;
+            background-color: dimgrey;
+            border: 0.06rem solid gold;
             width: 30rem;
             padding: 1rem;
             margin: 0.7rem;
+            border-radius: 0.5rem;
         }
 
         .form-group {
             margin-bottom: 0.8rem;
+            color: white;
         }
 
         .form-label {
             font-weight: bold;
             margin-bottom: 0.2rem;
+            color: gold;
         }
 
         input, textarea, select {
@@ -110,18 +115,18 @@
             text-align: center;
         }
 
-        .book-bin {
+        .action-btn {
             display: inline-block;
             padding: 0.5rem 1rem;
-            background-color: steelblue;
-            color: white !important;
+            background-color: goldenrod;
+            color: black !important;
             text-decoration: none;
             border-radius: 0.5rem;
             font-weight: bold;
         }
 
-        .book-bin:hover {
-            background-color: royalblue;
+        .action-btn:hover {
+            background-color: darkgoldenrod;
         }
 
     </style>
@@ -130,22 +135,27 @@
 
 <div class="nav">
 
+    <!-- Website title link -->
     <div class="nav-left">
         <a href="/">Wellington College Event Booking</a>
     </div>
 
+    <!-- Main navigation links -->
     <div class="nav-right">
         <a href="/">Home</a>
 
+        <!-- Only visible when user is logged out -->
         {% if session.get('user_id') == None %}
             <a href="/signup">Sign Up</a>
             <a href="/login">Login</a>
         {% endif %}
 
+        <!-- Only visible for admin users -->
         {% if session.get("role") == "admin" %}
             <a href="/add_event">Add Event</a>
         {% endif %}
 
+        <!-- Only visible when user is logged in -->
         {% if session.get('user_id') !=None %}
             <a href="/my_bookings">My Bookings</a>
             <a href="/logout">Logout</a>

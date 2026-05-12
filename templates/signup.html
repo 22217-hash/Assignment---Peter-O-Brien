@@ -2,44 +2,56 @@
 
 {%  block content %}
 
+<!-- Page heading-->
 <h2>Sign Up</h2>
 
 {% if error %}
     <p style="color: red">{{ error }} </p>
 {% endif %}
 
-
+    <!-- User signup form-->
     <form class="myform" METHOD="POST">
+
+        <!-- User first name input -->
         <div class ="form-group">
         <div class="form-label"> First Name: </div>
         <div class="form-element"> <input type="text" name="user_fname" required></div>
     </div>
 
+    <!-- User last name input -->
     <div class ="form-group">
         <div class="form-label"> Last Name: </div>
         <div class="form-element"> <input type="text" name="user_lname" required></div>
     </div>
 
+    <!-- User email input -->
     <div class ="form-group">
         <div class="form-label"> Email: </div>
         <div class="form-element"> <input type="email" name="user_email" required></div>
     </div>
 
+    <!-- User password input -->
     <div class ="form-group">
         <div class="form-label"> Password: </div>
         <div class="form-element"> <input type="password" name="user_password" required></div>
     </div>
 
+    <!-- Password conformation input -->
     <div class ="form-group">
         <div class="form-label"> Confirm Password: </div>
         <div class="form-element"> <input type="password" name="user_password2" required></div>
     </div>
 
-    <label>Role</label>label<br>
+    <!-- User role selection-->
+    <div class="form-group"
+         <div class="form-label">Role:</div>
+         <div class="form-element">
+
+    <!-- Allows user to change account role-->
     <select name="user_role">
         <option value="customer">Customer</option>option>
         <option value="admin">Admin</option>
-    </select><br><br>
+    </select>
 
     <button type = "submit">Sign Up</button>
 </form>

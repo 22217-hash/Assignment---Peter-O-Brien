@@ -2,14 +2,18 @@
 
 {% block content %}
 
+<!-- Page heading -->
 <h2>Add Event</h2>
 
+<!-- Displays error message if form submission fails-->
 {% if error %}
     <p style="color: red">{{ error }}</p>
 {% endif %}
 
+<!-- Form for admin users to create a new event-->
 <form class="myform" method="POST">
 
+    <!-- Input for event name-->
     <div class="form-group">
         <div class="form-label">Event Name:</div>
         <div class="form-element">
@@ -17,6 +21,7 @@
         </div>
     </div>
 
+    <!-- Input for event date-->
     <div class="form-group">
         <div class="form-label">Event Date:</div>
         <div class="form-element">
@@ -24,6 +29,7 @@
         </div>
     </div>
 
+    <!-- Input for event location-->
         <div class="form-group">
         <div class="form-label">Event Location:</div>
         <div class="form-element">
@@ -31,6 +37,7 @@
         </div>
     </div>
 
+    <!-- Input for event description-->
     <div class="form-group">
         <div class="form-label">Event Description:</div>
         <div class="form-element">
@@ -38,6 +45,15 @@
         </div>
     </div>
 
+    <!-- Input for maximum ticket capacity-->
+    <div class="form-group">
+        <div class="form-label">Ticket Capacity:</div>
+        <div class="form-element">
+            <input type="number" name="event_capacity" min="1" required>
+        </div>
+    </div>
+
+    <!-- Submit button to add event -->
     <button type="submit">Add Event</button>
 </form>
 

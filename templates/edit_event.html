@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Page heading -->
+<h2>Edit Event</h2>
+
+<!-- Displays error message if form submission fails -->
+{% if error %}
+    <p style="color: red">{{ error }}</p>
+{% endif %}
+
+<!-- Form for admin users to edit an existing event -->
+<form class="myform" method="POST">
+
+    <!-- Edit event name -->
+  <div class="form-group">
+      <div class="form-label">Event Name:</div>
+      <div class="form-element">
+          <input type="text" name="event_name" value="{{ event['event_name'] }}" required>
+      </div>
+  </div>
+
+     <!-- Edit event date -->
+  <div class="form-group">
+      <div class="form-label">Event Date:</div>
+      <div class="form-element">
+         <input type="date" name="event_date" value="{{ event['event_date'] }}" required>
+      </div>
+  </div>
+
+    <!-- Edit event location -->
+    <div class="form-group">
+      <div class="form-label">Event Location:</div>
+      <div class="form-element">
+         <input type="text" name="event_location" value="{{ event['event_location'] }}" required>
+      </div>
+  </div>
+
+    <!-- Edit event description -->
+    <div class="form-group">
+      <div class="form-label">Event Description:</div>
+      <div class="form-element">
+         <textarea name="event_description" required>{{event['event_description'] }}</textarea>
+      </div>
+  </div>
+
+    <!-- Edit ticket capacity -->
+    <div class="form-group">
+      <div class="form-label">Ticket Capacity:</div>
+      <div class="form-element">
+         <input type="number" name="event_capacity" value="{{ event['event_capacity'] }}" required>
+      </div>
+  </div>
+
+    <!-- Submit button to save updated event details -->
+  <button type="submit">Save Changes</button>
+
+</form>
+
+{% endblock %}
+

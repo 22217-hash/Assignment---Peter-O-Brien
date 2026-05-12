@@ -40,7 +40,8 @@
 
 <!-- ALlows users to cancel their booking -->
 <div class="form-group">
-    <a href="/delete_booking/{{ booking['booking_id'] }}">
+    <a class="action-btn" href="/delete_booking/{{ booking['booking_id'] }}"
+       onclick="return confirm('Are you sure you want to cancel this booking?')">
         Cancel Booking
     </a>
 </div>

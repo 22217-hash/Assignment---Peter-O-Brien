@@ -1,15 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+<!-- Page Heading -->
 <h2>Book Event</h2>
 
+<!-- Displays error message if there is one -->
 {% if error %}
     <p style="color: red">{{ error }} </p>
 {% endif %}
 
+<!-- Booking form-->
 <form class="myform" method="POST">
 
+    <!-- Shows selected event name-->
     <div class="form-group">
         <div class="form-label">Event Name:</div>
         <div class="form-element">
@@ -17,6 +20,7 @@
         </div>
     </div>
 
+    <!--    Shows selected event date -->
     <div class="form-group">
         <div class="form-label">Event Date:</div>
         <div class="form-element">
@@ -24,6 +28,7 @@
         </div>
     </div>
 
+    <!-- Shows selected event location -->
     <div class="form-group">
         <div class="form-label">Event Location:</div>
         <div class="form-element">
@@ -31,6 +36,7 @@
         </div>
     </div>
 
+    <!-- Shows selected event description -->
     <div class="form-group">
         <div class="form-label">Event Description:</div>
         <div class="form-element">
@@ -38,6 +44,7 @@
         </div>
     </div>
 
+    <!-- User enters number of tickets they want to book -->
     <div class="form-group">
         <div class="form-label">Tickets:</div>
         <div class="form-element">
@@ -45,6 +52,15 @@
         </div>
     </div>
 
+    <!-- Displays remaining tickets available -->
+    <div class="form-group">
+        <div class="form-label">Tickets Remaining:</div>
+        <div class="form-element">
+            <b>{{ tickets_left }}</b>
+        </div>
+    </div>
+
+    <!-- Submit booking button -->
     <button type="submit">Book</button>
 
 </form>
