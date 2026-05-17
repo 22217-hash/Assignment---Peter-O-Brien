@@ -4,28 +4,29 @@ from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
-app.secret_key = "secretkey"
-# connects to the SQLite database and allows rowsto be accessed like dictionaries
+app.secret_key = "supersecretkey"
+
+admin_password = "password"
+# connects to the SQLite database and lets rows be used like dictionaries
 
 
 def connect_db():
+    """
+    connects to the database
+    :return: the database connection
+    """
     con = sqlite3.connect("identifier.sqlite")
     con.row_factory = sqlite3.Row
     return con
 
 
-def is_admin():
-    # checks if user is an admin bassed on their session role
-    if session.get["role"] == "admin":
-        return True
-    else:
-        return False
-
 # displays all events on the home page
-
-
 @app.route('/')
 def home():
+    """
+    Displays the home page with all events from the database
+    :return: home page template with event list
+    """
     con = connect_db()
     cur = con.cursor()
     # Get all events from the database
@@ -40,6 +41,10 @@ def home():
 # handles user signup and stores new users in the database
 @app.route("/signup", methods=['GET', 'POST'])
 def render_signup_page():
+    """
+    Displays the signup page and also handles new user signup.
+    :return: signup page template or redirect to login/error page
+    """
     if request.method == 'POST':
         # Get user input from form
         fname = request.form.get('user_fname').title().strip()
@@ -48,6 +53,10 @@ def render_signup_page():
         password = request.form.get('user_password').strip()
         password2 = request.form.get('user_password2').strip()
         role = request.form.get('user_role').strip().lower()
+        admin_unlock = request.form.get("admin_unlock", "").strip()
+
+        if role == "admin" and admin_unlock != admin_password:
+            return redirect("/signup?error=wrong+admin+password")
 
         if fname == "" or lname == "" or email == "" or password == "" or password2 == "":
             return redirect("/signup?error=fill+in+all+boxes")
@@ -85,6 +94,10 @@ def render_signup_page():
 
 @app.route('/login', methods=['GET', 'POST'])
 def render_login_page():
+    """
+    Displays the login page and also checks user login details.
+    :return: login page template or redirect to home/error page.
+    """
     # Get user details from form
     if request.method == 'POST':
         email = request.form.get('user_email').lower().strip()
@@ -113,20 +126,31 @@ def render_login_page():
     error = request.args.get("error")
     return render_template("login.html", error=error)
 
-# Logs the user out by clearing session data
 
+# Logs the user out by clearing session data
 @app.route('/logout')
 def logout():
+    """
+    Logs out current user by clearing session data.
+    :return: redirect to home page
+    """
     session.clear()
     return redirect("/")
 
-# Allows admin users to add new events
 
+# Allows admin users to add new events
 @app.route('/add_event', methods=['GET', 'POST'])
 # Make sure user is logged in
 def add_event():
+    """
+    Allows admin users to add a new event.
+    :return: add event page template or redirect to home/error page
+    """
     if "user_id" not in session:
         return redirect("/login?error=log+in+first")
+
+    if session.get("role") != "admin":
+        return redirect("/")
 
     error = request.args.get("error")
     # Get event details from form
@@ -158,14 +182,16 @@ def add_event():
 
     return render_template("add_event.html", error=error)
 
-# Allows users to book tickets for an event
 
+# Allows users to book tickets for an event
 @app.route('/book_event/<event_id>', methods=['GET', 'POST'])
 def book_event(event_id):
-    '''
+    """
     Allows logged in users to book tickets for an event
     also check ticket limits based on event capacity
-    '''
+    :param event_id: ID of the event being booked
+    :return: book event page template or redirect to my bookings or error page
+    """
 
     # Make sure user is logged in first
     if "user_id" not in session:
@@ -201,8 +227,8 @@ def book_event(event_id):
             return redirect(f"/book_event/{event_id}?error=fill+in+tickets")
 
         if int(tickets) > tickets_left:
-                con.close()
-                return redirect(f"/book_event/{event_id}?error=not+enough+tickets+left")
+            con.close()
+            return redirect(f"/book_event/{event_id}?error=not+enough+tickets+left")
 
         insert_query = """
         INSERT INTO bookings (fk_user_id, fk_event_id, tickets)
@@ -221,8 +247,13 @@ def book_event(event_id):
 
 # Shows all bookings for the logged in user
 
+
 @app.route('/my_bookings')
 def my_bookings():
+    """
+    Displays all bookings for the logged in user
+    :return: my booking page with booking list
+    """
     if "user_id" not in session:
         return redirect("/login?error=log+in+first")
 
@@ -246,6 +277,11 @@ def my_bookings():
 # Allows user to cancel a booking
 @app.route('/delete_booking/<booking_id>')
 def delete_booking(booking_id):
+    """
+    Deletes a booking for the logged in user.
+    :param booking_id: ID of the booking being deleted
+    :return: redirect to my bookings page
+    """
     if "user_id" not in session:
         return redirect("/login")
 
@@ -260,11 +296,14 @@ def delete_booking(booking_id):
 
     return redirect("/my_bookings")
 
-@app.route('/edit_event/<event_id>', methods=['GET','POST'])
+
+@app.route('/edit_event/<event_id>', methods=['GET', 'POST'])
 def edit_event(event_id):
-    '''
+    """
     Allows admin users to edit an existing event
-    '''
+    :param event_id: ID of the event being edited
+    :return: edit event page or redirect to home or error page
+    """
 
     if "user_id" not in session:
         return redirect("/login?error=log+in+first")
@@ -286,9 +325,10 @@ def edit_event(event_id):
         event_description = request.form.get('event_description').strip()
         event_capacity = request.form.get('event_capacity').strip()
 
-        if event_name == "" or event_date == "" or event_location == "" or event_description == "" or event_capacity == "":
+        if event_name == "" or event_date == "" or event_location == "" or event_description == "" \
+                or event_capacity == "":
             con.close()
-            return redirect(f"edit_event/{event_id}?error=fill+in+all+boxes")
+            return redirect(f"/edit_event/{event_id}?error=fill+in+all+boxes")
 
         update_query = """
         UPDATE events
@@ -306,11 +346,14 @@ def edit_event(event_id):
     error = request.args.get("error")
     return render_template("edit_event.html", event=event, error=error)
 
+
 @app.route('/delete_event/<event_id>')
 def delete_event(event_id):
-    '''
+    """
     Allows admin users to remove an event
-    '''
+    :param event_id: ID of the event being deleted
+    :return: redirect to home page
+    """
 
     if "user_id" not in session:
         return redirect("/login?error=log+in+first")
@@ -321,13 +364,17 @@ def delete_event(event_id):
     con = connect_db()
     cur = con.cursor()
 
+    cur.execute("DELETE FROM bookings WHERE fk_event_id = ?", (event_id,))
+
     query = "DELETE FROM events WHERE event_id = ?"
     cur.execute(query, (event_id,))
 
     con.commit()
+
     con.close()
 
     return redirect("/")
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5005)

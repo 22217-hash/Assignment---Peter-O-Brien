@@ -11,7 +11,7 @@
 
 {% else %}
 
-<!-- Loop through eafch booking in the database-->
+<!-- Loop through each booking in the database-->
 {% for booking in booking_list %}
 
 <!--Display event name-->
@@ -38,7 +38,7 @@
         </div>
     </div>
 
-<!-- ALlows users to cancel their booking -->
+<!-- Allows users to cancel their booking -->
 <div class="form-group">
     <a class="action-btn" href="/delete_booking/{{ booking['booking_id'] }}"
        onclick="return confirm('Are you sure you want to cancel this booking?')">

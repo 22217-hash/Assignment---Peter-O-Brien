@@ -12,15 +12,6 @@
             padding: 1rem;
         }
 
-        h1 {
-            text-align: center;
-            font-weight: normal;
-            font-size: 2.5rem;
-            padding: 1rem;
-            color: gold;
-            background-color: black;
-            border-bottom: 0.15rem solid gold;
-        }
 
         h2 {
             text-align: center;
@@ -33,6 +24,11 @@
             background-color: gold;
             text-align: center;
             padding: 0.7rem;
+            width: 30rem;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 2rem;
+
         }
 
         .nav a {
@@ -156,7 +152,7 @@
         {% endif %}
 
         <!-- Only visible when user is logged in -->
-        {% if session.get('user_id') !=None %}
+        {% if session.get('user_id') != None %}
             <a href="/my_bookings">My Bookings</a>
             <a href="/logout">Logout</a>
         {% endif %}

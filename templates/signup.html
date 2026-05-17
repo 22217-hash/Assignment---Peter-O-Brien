@@ -13,7 +13,7 @@
     <form class="myform" METHOD="POST">
 
         <!-- User first name input -->
-        <div class ="form-group">
+    <div class ="form-group">
         <div class="form-label"> First Name: </div>
         <div class="form-element"> <input type="text" name="user_fname" required></div>
     </div>
@@ -43,15 +43,25 @@
     </div>
 
     <!-- User role selection-->
-    <div class="form-group"
+    <div class="form-group">
          <div class="form-label">Role:</div>
          <div class="form-element">
+             <select name="user_role">
+                 <option value="customer">Customer</option>
+                 <option value="admin">Admin</option>
+             </select>
+         </div>
+    </div>
 
-    <!-- Allows user to change account role-->
-    <select name="user_role">
-        <option value="customer">Customer</option>option>
-        <option value="admin">Admin</option>
-    </select>
+
+    <!-- Allows people who know password to become admin -->
+    <div class="form-group">
+        <div class="form-label">Admin password: </div>
+        <div class="form-element">
+            <input type="password" name="admin_unlock">
+        </div>
+    </div>
+
 
     <button type = "submit">Sign Up</button>
 </form>
